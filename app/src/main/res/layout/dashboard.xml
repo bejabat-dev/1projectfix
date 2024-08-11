@@ -117,7 +117,8 @@
                     android:layout_weight="0.333"
                     android:background="@drawable/oren"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/imageView4"

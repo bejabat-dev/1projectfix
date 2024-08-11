@@ -207,18 +207,16 @@ public class DaftarMurid extends AppCompatActivity {
         private Context context;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            private final TextView nama, tanggal, alamat, kelas, posisi;
-            private final LinearLayout card, download;
+            private final TextView nama, tanggal, alamat, kelas;
+            private final LinearLayout card;
             private final ImageView foto1, foto2, foto3;
 
             public ViewHolder(View view) {
                 super(view);
-                download = view.findViewById(R.id.download);
                 nama = view.findViewById(R.id.nama);
                 tanggal = view.findViewById(R.id.tanggal);
                 kelas = view.findViewById(R.id.kelas);
                 alamat = view.findViewById(R.id.alamat);
-                posisi = view.findViewById(R.id.posisi);
                 card = view.findViewById(R.id.card);
                 foto1 = view.findViewById(R.id.foto1);
                 foto2 = view.findViewById(R.id.foto2);
@@ -229,9 +227,6 @@ public class DaftarMurid extends AppCompatActivity {
                 return tanggal;
             }
 
-            public LinearLayout getDownload() {
-                return download;
-            }
 
             public LinearLayout getCard() {
                 return card;
@@ -241,9 +236,6 @@ public class DaftarMurid extends AppCompatActivity {
                 return alamat;
             }
 
-            public TextView getPosisi() {
-                return posisi;
-            }
 
             public TextView getKelas() {
                 return kelas;
@@ -300,26 +292,6 @@ public class DaftarMurid extends AppCompatActivity {
             viewHolder.getTanggal().setText(ttl);
             viewHolder.getAlamat().setText(localDataSet.get(position).get("alamat").toString());
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
-            viewHolder.getPosisi().setText(pos);
-
-            viewHolder.getDownload().setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            StorageReference storage = FirebaseStorage.getInstance().getReference();
-                            if (!foto1.equals("")) {
-                                new DownloadGambar(context).execute(foto1);
-                            }
-                            if (!foto2.equals("")) {
-                                new DownloadGambar(context).execute(foto2);
-                            }
-                            if (!foto3.equals("")) {
-                                new DownloadGambar(context).execute(foto3);
-                            }
-                            Toast.makeText(context, "Foto sedang di download", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-            );
 
 
             if (!Objects.equals(foto1, "")) {
@@ -331,6 +303,13 @@ public class DaftarMurid extends AppCompatActivity {
             if (!Objects.equals(foto3, "")) {
                 Picasso.get().load(foto3).into(viewHolder.getFoto3());
             }
+
+            viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
             viewHolder.getCard().setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
