@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">1. project fix</string>
+    <string-array name="list_sabuk">
+        <item>Putih</item>
+        <item>Kuning</item>
+        <item>Kuning strip hijau</item>
+        <item>Hijau</item>
+        <item>hijau strip biru</item>
+        <item>Biru</item>
+        <item>Biru strip merah</item>
+        <item>Merah</item>
+        <item>Merah strip hitam 1</item>
+        <item>Merah strip hitam 2</item>
+        <item>Hitam strip 1</item>
+        <item>Hitam strip 2</item>
+        <item>Hitam strip 3</item>
+        <item>Hitam strip 4</item>
+        <item>Hitam strip 5</item>
+        <item>Hitam strip 6</item>
+    </string-array>
+</resources>

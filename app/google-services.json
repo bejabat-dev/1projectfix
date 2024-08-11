@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "647765193351",
+    "firebase_url": "https://databaseabsen-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "databaseabsen",
+    "storage_bucket": "databaseabsen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647765193351:android:73aa70c1784e2b82597e22",
+        "android_client_info": {
+          "package_name": "com.example.a1projectfix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAod_QEouFGFCEoRuTf8seW1DfFFyTYC3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

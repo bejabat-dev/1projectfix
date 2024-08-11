@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".TambahFoto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@drawable/cyan"
+        android:backgroundTint="@color/teal_200"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tambah Foto"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="16dp"
+                android:text="Foto 1" />
+
+            <ImageView
+                android:id="@+id/foto1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:background="#FAFAFA"
+                android:scaleType="center"
+                app:srcCompat="@drawable/gallery" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="16dp"
+                android:text="Foto 2" />
+
+            <ImageView
+                android:id="@+id/foto2"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:background="#FAFAFA"
+                android:scaleType="center"
+                app:srcCompat="@drawable/gallery" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="16dp"
+                android:text="Foto 3" />
+
+            <ImageView
+                android:id="@+id/foto3"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:background="#FAFAFA"
+                android:scaleType="center"
+                app:srcCompat="@drawable/gallery" />
+
+            <Button
+                android:id="@+id/btn_selesai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Selesai" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

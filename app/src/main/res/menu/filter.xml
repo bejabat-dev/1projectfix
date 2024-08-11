@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nama"
+        android:title="Nama" />
+    <item
+        android:id="@+id/reguler"
+        android:title="Kelas Reguler" />
+    <item
+        android:id="@+id/prestasi"
+        android:title="Kelas Prestasi" />
+    <item
+        android:id="@+id/khusus"
+        android:title="Kelas Khusus" />
+
+
+</menu>
