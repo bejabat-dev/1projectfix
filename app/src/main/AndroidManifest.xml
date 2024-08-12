@@ -24,6 +24,9 @@
         android:theme="@style/Theme._1ProjectFix"
         tools:targetApi="31">
         <activity
+            android:name=".daftar.DetailMurid"
+            android:exported="false" />
+        <activity
             android:name=".DataMurid"
             android:exported="false" />
         <activity
