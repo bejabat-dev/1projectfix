@@ -311,6 +311,20 @@ public class DaftarMurid extends AppCompatActivity {
                 }
             });
 
+            viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context,DetailMurid.class);
+                    i.putExtra("nama",nama);
+                    i.putExtra("ttl",ttl);
+                    i.putExtra("kelas",kelas);
+                    i.putExtra("alamat",alamat);
+                    i.putExtra("foto1",foto1);
+                    i.putExtra("foto2",foto2);
+                    context.startActivity(i);
+                }
+            });
+
             viewHolder.getCard().setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

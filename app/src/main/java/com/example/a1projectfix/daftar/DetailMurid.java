@@ -9,18 +9,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.a1projectfix.R;
+import com.example.a1projectfix.databinding.ActivityDetailMuridBinding;
 
 public class DetailMurid extends AppCompatActivity {
-
+private ActivityDetailMuridBinding bind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_detail_murid);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        bind = ActivityDetailMuridBinding.inflate(getLayoutInflater());
+        setContentView(bind.getRoot());
+    }
+
+    private void init(){
+
     }
 }
