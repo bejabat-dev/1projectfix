@@ -201,15 +201,15 @@ public class DaftarMurid extends AppCompatActivity {
         });
     }
 
-    public static class CustomAdapter extends RecyclerView.Adapter<DaftarMurid.CustomAdapter.ViewHolder> {
+    public class CustomAdapter extends RecyclerView.Adapter<DaftarMurid.CustomAdapter.ViewHolder> {
 
         private final ArrayList<HashMap<String, Object>> localDataSet;
         private Context context;
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama, tanggal, alamat, kelas;
             private final LinearLayout card;
-            private final ImageView foto1, foto2, foto3;
+            private final ImageView foto;
 
             public ViewHolder(View view) {
                 super(view);
@@ -218,9 +218,7 @@ public class DaftarMurid extends AppCompatActivity {
                 kelas = view.findViewById(R.id.kelas);
                 alamat = view.findViewById(R.id.alamat);
                 card = view.findViewById(R.id.card);
-                foto1 = view.findViewById(R.id.foto1);
-                foto2 = view.findViewById(R.id.foto2);
-                foto3 = view.findViewById(R.id.foto3);
+                foto = view.findViewById(R.id.foto);
             }
 
             public TextView getTanggal() {
@@ -245,16 +243,8 @@ public class DaftarMurid extends AppCompatActivity {
                 return nama;
             }
 
-            public ImageView getFoto1() {
-                return foto1;
-            }
-
-            public ImageView getFoto2() {
-                return foto2;
-            }
-
-            public ImageView getFoto3() {
-                return foto3;
+            public ImageView getFoto() {
+                return foto;
             }
         }
 
@@ -294,14 +284,8 @@ public class DaftarMurid extends AppCompatActivity {
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
 
 
-            if (!Objects.equals(foto1, "unset")) {
-                Picasso.get().load(foto1).into(viewHolder.getFoto1());
-            }
-            if (!Objects.equals(foto2, "unset")) {
-                Picasso.get().load(foto2).into(viewHolder.getFoto2());
-            }
-            if (!Objects.equals(foto3, "unset")) {
-                Picasso.get().load(foto3).into(viewHolder.getFoto3());
+            if(!foto1.equals("unset")) {
+                Picasso.get().load(foto1).into(viewHolder.getFoto());
             }
 
             viewHolder.getCard().setOnClickListener(new View.OnClickListener() {

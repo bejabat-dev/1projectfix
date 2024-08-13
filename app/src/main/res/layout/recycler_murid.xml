@@ -26,7 +26,7 @@
 
             <ImageView
                 android:layout_marginStart="16dp"
-                android:id="@+id/imageView2"
+                android:id="@+id/foto"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/aku" />

@@ -85,7 +85,7 @@ public class Konfirmasi extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama, tanggal, alamat, kelas;
             private final LinearLayout card;
-            private final ImageView foto1, foto2, foto3;
+            private final ImageView foto;
 
             public ViewHolder(View view) {
                 super(view);
@@ -94,9 +94,7 @@ public class Konfirmasi extends AppCompatActivity {
                 kelas = view.findViewById(R.id.kelas);
                 alamat = view.findViewById(R.id.alamat);
                 card = view.findViewById(R.id.card);
-                foto1 = view.findViewById(R.id.foto1);
-                foto2 = view.findViewById(R.id.foto2);
-                foto3 = view.findViewById(R.id.foto3);
+                foto = view.findViewById(R.id.foto);
             }
 
             public TextView getNama() {
@@ -117,14 +115,6 @@ public class Konfirmasi extends AppCompatActivity {
 
             public LinearLayout getCard() {
                 return card;
-            }
-
-            public ImageView getFoto1() {
-                return foto1;
-            }
-
-            public ImageView getFoto2() {
-                return foto2;
             }
         }
 

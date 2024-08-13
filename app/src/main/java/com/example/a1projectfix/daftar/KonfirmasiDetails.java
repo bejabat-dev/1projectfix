@@ -7,12 +7,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.a1projectfix.databinding.ActivityDetailMuridBinding;
 import com.example.a1projectfix.databinding.ActivityKonfirmasiDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +22,7 @@ import java.util.Map;
 public class KonfirmasiDetails extends AppCompatActivity {
     private ActivityKonfirmasiDetailsBinding bind;
     private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,16 @@ public class KonfirmasiDetails extends AppCompatActivity {
 
         key = i.getStringExtra("nama");
 
+        String foto1, foto2;
+        foto1 = i.getStringExtra("foto1");
+        foto2 = i.getStringExtra("foto2");
+
+        if (foto1 != null && foto2 != null) {
+            Picasso.get().load(foto1).into(bind.foto1);
+            Picasso.get().load(foto2).into(bind.foto2);
+        }
+
+
         bind.nama.setText(i.getStringExtra("nama"));
         bind.ttl.setText(i.getStringExtra("ttl"));
         bind.kelas.setText(i.getStringExtra("kelas"));
@@ -48,8 +61,8 @@ public class KonfirmasiDetails extends AppCompatActivity {
                 db.child(key).child("register").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(KonfirmasiDetails.this,"Berhasil konfirmasi",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(KonfirmasiDetails.this, "Berhasil konfirmasi", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -62,8 +75,8 @@ public class KonfirmasiDetails extends AppCompatActivity {
                 db.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(KonfirmasiDetails.this,"Berhasil hapus",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(KonfirmasiDetails.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
