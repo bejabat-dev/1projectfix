@@ -64,7 +64,7 @@ public class EditProfil extends AppCompatActivity {
         foto = findViewById(R.id.foto_profil);
 
         String sfoto = DataUser.getFoto();
-        if (!sfoto.equals("")) {
+        if (!sfoto.equals("unset")) {
             Picasso.get().load(sfoto).into(foto);
         }
         foto.setOnClickListener(new View.OnClickListener() {

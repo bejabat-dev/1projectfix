@@ -1,5 +1,7 @@
-package com.example.a1projectfix;
+package com.example.a1projectfix.daftar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a1projectfix.R;
 import com.example.a1projectfix.databinding.ActivityKonfirmasiBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Konfirmasi extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> dataSet;
@@ -39,13 +36,13 @@ public class Konfirmasi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityKonfirmasiBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        loadMurid();
-        CustomAdapter rvAdapter = new CustomAdapter(dataSet);
+        loadMurid(this);
+        CustomAdapter rvAdapter = new CustomAdapter(this, dataSet);
         bind.recycler.setAdapter(rvAdapter);
         bind.recycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void loadMurid() {
+    public void loadMurid(Context context) {
         dataSet = new ArrayList<>();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("Murid").addValueEventListener(new ValueEventListener() {
@@ -57,6 +54,8 @@ public class Konfirmasi extends AppCompatActivity {
                     HashMap<String, Object> d = ds.getValue(map);
                     dataSet.add(d);
                 }
+                CustomAdapter rvAdapter = new CustomAdapter(context, dataSet);
+                bind.recycler.setAdapter(rvAdapter);
             }
 
             @Override
@@ -70,6 +69,7 @@ public class Konfirmasi extends AppCompatActivity {
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
         private final ArrayList<HashMap<String, Object>> localDataSet;
+        private Context localContext;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama, tanggal, alamat, kelas;
@@ -118,8 +118,9 @@ public class Konfirmasi extends AppCompatActivity {
         }
 
 
-        public CustomAdapter(ArrayList<HashMap<String, Object>> dataSet) {
+        public CustomAdapter(Context mContext, ArrayList<HashMap<String, Object>> dataSet) {
             localDataSet = dataSet;
+            localContext = mContext;
         }
 
         @NonNull
@@ -133,13 +134,38 @@ public class Konfirmasi extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
+            String key = localDataSet.get(position).get("key").toString();
             String tempat = localDataSet.get(position).get("tempat").toString();
             String tanggal = localDataSet.get(position).get("tanggal").toString();
+
+            String foto1 = localDataSet.get(position).get("foto1").toString();
+            String foto2 = localDataSet.get(position).get("foto2").toString();
+            String foto3 = localDataSet.get(position).get("foto3").toString();
+
+            String nama = localDataSet.get(position).get("nama").toString();
+            String kelas = localDataSet.get(position).get("kelas").toString();
+
+            String alamat = localDataSet.get(position).get("alamat").toString();
             String ttl = tempat + ", " + tanggal;
             viewHolder.getNama().setText(localDataSet.get(position).get("nama").toString());
             viewHolder.getTanggal().setText(ttl);
             viewHolder.getAlamat().setText(localDataSet.get(position).get("alamat").toString());
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
+
+            viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(localContext, KonfirmasiDetails.class);
+                    i.putExtra("nama", nama);
+                    i.putExtra("ttl", ttl);
+                    i.putExtra("kelas", kelas);
+                    i.putExtra("alamat", alamat);
+                    i.putExtra("foto1", foto1);
+                    i.putExtra("foto2", foto2);
+                    localContext.startActivity(i);
+                }
+            });
         }
 
         @Override

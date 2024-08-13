@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.a1projectfix.Konfirmasi;
+import com.example.a1projectfix.daftar.Konfirmasi;
 import com.example.a1projectfix.daftar.DaftarKegiatan;
 import com.example.a1projectfix.daftar.DaftarMurid;
 import com.example.a1projectfix.R;
@@ -18,9 +18,6 @@ import com.example.a1projectfix.utilitas.DataKegiatan;
 import com.example.a1projectfix.utilitas.DataMurid;
 import com.example.a1projectfix.utilitas.DataUser;
 import com.example.a1projectfix.user.Profil;
-import com.example.a1projectfix.Prestasi;
-import com.example.a1projectfix.pendaftaran.Tambah;
-import com.example.a1projectfix.Terbaik;
 
 public class Dashboard extends AppCompatActivity {
     private LinearLayout muridt;

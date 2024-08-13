@@ -97,7 +97,7 @@ public class Daftar extends AppCompatActivity {
                                 map.put("email",username);
                                 map.put("nohp","Belum diset");
                                 map.put("sabuk","Belum diset");
-                                map.put("foto","");
+                                map.put("foto","unset");
                                 map.put("selection","0");
                                 d.updateUser(map);
                                 Toast.makeText(Daftar.this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();

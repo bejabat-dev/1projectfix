@@ -27,7 +27,7 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rincian murid"
+                android:text="Konfirmasi murid"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
@@ -110,45 +110,45 @@
             android:gravity="end"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
                 android:id="@+id/nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/input"
                 android:gravity="end"
+                android:padding="8dp"
                 android:text="Nama"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/ttl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/input"
                 android:gravity="end"
+                android:padding="8dp"
                 android:text="TTL"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/kelas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/input"
                 android:gravity="end"
+                android:padding="8dp"
                 android:text="Kelas"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/alamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/input"
                 android:gravity="end"
                 android:maxLines="3"
                 android:minLines="1"
+                android:padding="8dp"
                 android:text="Alamat"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -184,7 +184,7 @@
             android:background="@drawable/cyan"
             android:gravity="center"
             android:padding="12dp"
-            android:text="Save"
+            android:text="Konfirmasi"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:textStyle="bold" />
