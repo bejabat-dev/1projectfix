@@ -23,5 +23,4 @@ public class DetailMurid extends AppCompatActivity {
         bind.kelas.setText(i.getStringExtra("kelas"));
         bind.alamat.setText(i.getStringExtra("alamat"));
     }
-
 }

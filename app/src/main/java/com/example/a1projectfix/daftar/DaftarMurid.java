@@ -294,13 +294,13 @@ public class DaftarMurid extends AppCompatActivity {
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
 
 
-            if (!Objects.equals(foto1, "")) {
+            if (!Objects.equals(foto1, "unset")) {
                 Picasso.get().load(foto1).into(viewHolder.getFoto1());
             }
-            if (!Objects.equals(foto2, "")) {
+            if (!Objects.equals(foto2, "unset")) {
                 Picasso.get().load(foto2).into(viewHolder.getFoto2());
             }
-            if (!Objects.equals(foto3, "")) {
+            if (!Objects.equals(foto3, "unset")) {
                 Picasso.get().load(foto3).into(viewHolder.getFoto3());
             }
 

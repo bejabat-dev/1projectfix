@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Konfirmasi extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> dataSet;
@@ -42,17 +43,27 @@ public class Konfirmasi extends AppCompatActivity {
         bind.recycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadMurid(this);
+    }
+
     public void loadMurid(Context context) {
         dataSet = new ArrayList<>();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("Murid").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataSet = new ArrayList<>();
                 GenericTypeIndicator<HashMap<String, Object>> map = new GenericTypeIndicator<HashMap<String, Object>>() {
                 };
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     HashMap<String, Object> d = ds.getValue(map);
-                    dataSet.add(d);
+                    assert d != null;
+                    if (Objects.equals(d.get("register"), true)) {
+                        dataSet.add(d);
+                    }
                 }
                 CustomAdapter rvAdapter = new CustomAdapter(context, dataSet);
                 bind.recycler.setAdapter(rvAdapter);

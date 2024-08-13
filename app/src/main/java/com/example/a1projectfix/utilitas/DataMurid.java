@@ -108,7 +108,10 @@ public class DataMurid {
                 };
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     HashMap<String, Object> d = ds.getValue(map);
-                    list_murid.add(d);
+                    if(d.get("register")==null){
+
+                        list_murid.add(d);
+                    }
                 }
             }
 
