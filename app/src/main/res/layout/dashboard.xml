@@ -48,7 +48,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="145dp"
+                android:layout_height="260dp"
                 android:layout_margin="24dp"
                 android:orientation="horizontal">
 
@@ -57,7 +57,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="0.333"
+                    android:layout_weight="0.45"
                     android:background="@drawable/cyan"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -86,7 +86,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="0.333"
+                    android:layout_weight="0.45"
                     android:background="@drawable/ungu"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Tambah Murid"
+                        android:text="Konfirmasi data"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />

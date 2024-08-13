@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.a1projectfix.Konfirmasi;
 import com.example.a1projectfix.daftar.DaftarKegiatan;
 import com.example.a1projectfix.daftar.DaftarMurid;
 import com.example.a1projectfix.R;
@@ -79,7 +80,7 @@ public class Dashboard extends AppCompatActivity {
         tambahmurid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Dashboard.this, Tambah.class);
+                Intent intent = new Intent(Dashboard.this, Konfirmasi.class);
                 startActivity(intent);
             }
         });
