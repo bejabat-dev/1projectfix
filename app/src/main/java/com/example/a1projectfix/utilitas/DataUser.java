@@ -91,6 +91,10 @@ public class DataUser {
                 nohp = snapshot.child("nohp").getValue(String.class);
                 foto = snapshot.child("foto").getValue(String.class);
                 selection = snapshot.child("selection").getValue(String.class);
+                String role = snapshot.child("role").getValue(String.class);
+                if(role!=null){
+                    DataUser.role = role;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

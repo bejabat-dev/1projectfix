@@ -61,6 +61,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
             public void onClick(View v) {
                 String key = db.push().getKey();
                 Map<String,Object> data = new HashMap<>();
+                data.put("key",key);
                 data.put("nama",bind.nama.getText().toString());
                 data.put("tempat",bind.tempat.getText().toString());
                 data.put("tanggal",bind.tanggal.getText().toString());
@@ -69,6 +70,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
                 data.put("foto1",foto1);
                 data.put("foto2",foto2);
 
+                assert key != null;
                 db.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

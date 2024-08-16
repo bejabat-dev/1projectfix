@@ -183,7 +183,7 @@
 
         <TextView
             android:id="@+id/download"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
@@ -197,14 +197,28 @@
 
         <TextView
             android:id="@+id/save"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:background="@drawable/cyan"
             android:gravity="center"
             android:padding="12dp"
-            android:text="Save"
+            android:text="Simpan"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hapus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/hapus"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Hapus"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:textStyle="bold" />

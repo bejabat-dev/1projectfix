@@ -266,12 +266,6 @@ public class DaftarMurid extends AppCompatActivity {
                 Picasso.get().load(foto1).into(viewHolder.getFoto());
             }
 
-            viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
 
             viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -294,7 +288,6 @@ public class DaftarMurid extends AppCompatActivity {
                 public boolean onLongClick(View v) {
                     DataMurid.foto1 = localDataSet.get(position).get("foto1").toString();
                     DataMurid.foto2 = localDataSet.get(position).get("foto2").toString();
-                    DataMurid.foto3 = localDataSet.get(position).get("foto3").toString();
                     DataMurid.key = key;
                     Intent i = new Intent(context, Tambah.class);
                     i.putExtra("nama", nama);

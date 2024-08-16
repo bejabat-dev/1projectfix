@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +27,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.a1projectfix.R;
 import com.example.a1projectfix.pendaftaran.Tambah;
 import com.example.a1projectfix.utilitas.DataMurid;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Random;
 
 public class RekapData extends AppCompatActivity {
     private RecyclerView rv;
@@ -42,12 +50,13 @@ public class RekapData extends AppCompatActivity {
     private ListView list_download;
     public static ArrayAdapter<String> download_arrays;
     public static ArrayList<String> adapter_download = new ArrayList<>();
+    public static ArrayList<String> download_foto = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekap_data);
-        download_arrays = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,adapter_download);
+        download_arrays = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, adapter_download);
 
         list_download = findViewById(R.id.list_download);
         list_download.setAdapter(download_arrays);
@@ -60,7 +69,6 @@ public class RekapData extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override
@@ -109,8 +117,49 @@ public class RekapData extends AppCompatActivity {
         });
     }
 
-    private void init(Context context) {
+    public static ArrayList<String> list_foto = new ArrayList<>();
 
+    private void init(Context context) {
+        TextView download = findViewById(R.id.download);
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                if (!list_foto.isEmpty()) {
+                    int totalFiles = list_foto.size();
+                    int[] completedDownloads = {0}; // Use an array to allow modification inside the listener
+
+                    for (int i = 0; i < totalFiles; i++) {
+                        Random a = new Random();
+                        int randomNumber = a.nextInt(1000000000);
+                        File localFile = new File(getExternalFilesDir(null), randomNumber + ".jpg");
+
+                        storageReference.child(list_foto.get(i)).getFile(localFile)
+                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        // Increment the completedDownloads counter
+                                        completedDownloads[0]++;
+
+                                        // Check if all files have been downloaded
+                                        if (completedDownloads[0] == totalFiles) {
+                                            Toast.makeText(RekapData.this, "Berhasil download", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle any errors here
+                                        Toast.makeText(RekapData.this, "Failed to download: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        // Optional: You might want to handle failures differently, such as retrying or stopping the process
+                                    }
+                                });
+                    }
+                }
+
+            }
+        });
         search = findViewById(R.id.search);
         rv = findViewById(R.id.recycler);
         CustomAdapter adapter = new CustomAdapter(context, DataMurid.getList_murid());
@@ -273,15 +322,17 @@ public class RekapData extends AppCompatActivity {
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
 
 
-            if(!foto1.equals("unset")) {
+            if (!foto1.equals("unset")) {
                 Picasso.get().load(foto1).into(viewHolder.getFoto());
             }
 
             viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-    adapter_download.add(nama);
-    download_arrays.notifyDataSetChanged();
+                    adapter_download.add(nama);
+                    list_foto.add(foto1);
+                    list_foto.add(foto2);
+                    download_arrays.notifyDataSetChanged();
                 }
             });
 
