@@ -24,6 +24,9 @@
         android:theme="@style/Theme._1ProjectFix"
         tools:targetApi="31">
         <activity
+            android:name=".daftar.RekapData"
+            android:exported="false" />
+        <activity
             android:name=".daftar.KonfirmasiDetails"
             android:exported="false" />
         <activity

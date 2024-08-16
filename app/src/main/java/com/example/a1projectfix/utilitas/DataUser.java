@@ -69,6 +69,8 @@ public class DataUser {
         return pilihan;
     }
 
+    public static String role;
+
     public static void setPilihan(String pilihan) {
         DataUser.pilihan = pilihan;
     }
