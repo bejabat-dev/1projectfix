@@ -50,7 +50,7 @@ public class DataMurid {
     private static String alamat;
 
     public static String foto1, foto2, foto3;
-    private static ArrayList<HashMap<String, Object>> list_murid;
+    public static ArrayList<HashMap<String, Object>> list_murid;
 
     public static ArrayList<HashMap<String, Object>> getList_murid() {
         return list_murid;

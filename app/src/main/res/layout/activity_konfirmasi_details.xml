@@ -85,7 +85,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:padding="8dp"
-                android:text="TTL"
+                android:text="Tempat lahir"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:padding="8dp"
+                android:text="Tanggal lahir"
                 android:textSize="16sp" />
 
             <TextView
@@ -123,7 +131,17 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/ttl"
+                android:id="@+id/tempat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="TTL"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"

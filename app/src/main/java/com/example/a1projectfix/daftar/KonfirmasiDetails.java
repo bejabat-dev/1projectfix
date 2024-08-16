@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class KonfirmasiDetails extends AppCompatActivity {
     private ActivityKonfirmasiDetailsBinding bind;
-    private String key;
+    private String keyNama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Murid");
         Intent i = getIntent();
 
-        key = i.getStringExtra("nama");
+        keyNama = i.getStringExtra("nama");
 
         String foto1, foto2;
         foto1 = i.getStringExtra("foto1");
@@ -49,7 +49,8 @@ public class KonfirmasiDetails extends AppCompatActivity {
 
 
         bind.nama.setText(i.getStringExtra("nama"));
-        bind.ttl.setText(i.getStringExtra("ttl"));
+        bind.tanggal.setText(i.getStringExtra("tanggal"));
+        bind.tempat.setText(i.getStringExtra("tempat"));
         bind.kelas.setText(i.getStringExtra("kelas"));
         bind.alamat.setText(i.getStringExtra("alamat"));
         bind.download.setText("Hapus");
@@ -58,12 +59,29 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.child(key).child("register").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                String key = db.push().getKey();
+                Map<String,Object> data = new HashMap<>();
+                data.put("nama",bind.nama.getText().toString());
+                data.put("tempat",bind.tempat.getText().toString());
+                data.put("tanggal",bind.tanggal.getText().toString());
+                data.put("kelas",bind.kelas.getText().toString());
+                data.put("alamat",bind.alamat.getText().toString());
+                data.put("foto1",foto1);
+                data.put("foto2",foto2);
+
+                db.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(KonfirmasiDetails.this, "Berhasil konfirmasi", Toast.LENGTH_SHORT).show();
-                            finish();
+                        if(task.isSuccessful()){
+                            db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(KonfirmasiDetails.this,"Berhasil konfirmasi",Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -72,7 +90,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {

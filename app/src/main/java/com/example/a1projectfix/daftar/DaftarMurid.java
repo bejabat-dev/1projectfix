@@ -249,7 +249,6 @@ public class DaftarMurid extends AppCompatActivity {
 
             String foto1 = localDataSet.get(position).get("foto1").toString();
             String foto2 = localDataSet.get(position).get("foto2").toString();
-            String foto3 = localDataSet.get(position).get("foto3").toString();
 
             String nama = localDataSet.get(position).get("nama").toString();
             String kelas = localDataSet.get(position).get("kelas").toString();
@@ -278,8 +277,10 @@ public class DaftarMurid extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context,DetailMurid.class);
+                    i.putExtra("key",key);
                     i.putExtra("nama",nama);
-                    i.putExtra("ttl",ttl);
+                    i.putExtra("tempat",tempat);
+                    i.putExtra("tanggal",tanggal);
                     i.putExtra("kelas",kelas);
                     i.putExtra("alamat",alamat);
                     i.putExtra("foto1",foto1);

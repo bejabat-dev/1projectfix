@@ -36,7 +36,7 @@ public class DetailMurid extends AppCompatActivity {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Murid");
         Intent i = getIntent();
 
-        key = i.getStringExtra("nama");
+        key = i.getStringExtra("key");
 
         String foto1, foto2;
         foto1 = i.getStringExtra("foto1");
@@ -49,7 +49,8 @@ public class DetailMurid extends AppCompatActivity {
 
 
         bind.nama.setText(i.getStringExtra("nama"));
-        bind.ttl.setText(i.getStringExtra("ttl"));
+        bind.tempat.setText(i.getStringExtra("tempat"));
+        bind.tanggal.setText(i.getStringExtra("tanggal"));
         bind.kelas.setText(i.getStringExtra("kelas"));
         bind.alamat.setText(i.getStringExtra("alamat"));
         bind.download.setText("Download data");
@@ -58,7 +59,14 @@ public class DetailMurid extends AppCompatActivity {
         bind.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.child(key).child("register").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                Map<String,Object> data = new HashMap<>();
+                data.put("nama",bind.nama.getText().toString());
+                data.put("tempat",bind.tempat.getText().toString());
+                data.put("tanggal",bind.tanggal.getText().toString());
+                data.put("kelas",bind.kelas.getText().toString());
+                data.put("alamat",bind.alamat.getText().toString());
+
+                db.child(key).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
