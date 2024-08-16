@@ -20,14 +20,9 @@ import com.example.a1projectfix.utilitas.DataUser;
 import com.example.a1projectfix.user.Profil;
 
 public class Dashboard extends AppCompatActivity {
-    private LinearLayout muridt;
-    private LinearLayout jumlahm;
     private LinearLayout tambahmurid;
-    private LinearLayout absenp;
-    private LinearLayout prestasim;
-    private LinearLayout historyp;
     private LinearLayout daftarp;
-    private LinearLayout daftarkegiatan,jumlah_murid;
+    private LinearLayout jumlah_murid;
     private ImageView profil;
     private TextView daftar_kegiatan;
 
@@ -48,7 +43,6 @@ public class Dashboard extends AppCompatActivity {
 
         profil = findViewById(R.id.profil);
         tambahmurid = findViewById(R.id.tambah_murid);
-        absenp = findViewById(R.id.bt_absenp);
         daftarp = findViewById(R.id.btn_daftarp);
         daftar_kegiatan = findViewById(R.id.daftark);
         jumlah_murid = findViewById(R.id.jumlah_murid);
@@ -81,13 +75,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        absenp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Dashboard.this, Absen.class);
-                startActivity(intent);
-            }
-        });
+
         daftar_kegiatan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
