@@ -3,12 +3,14 @@ package com.example.a1projectfix.daftar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -60,6 +62,18 @@ public class RekapData extends AppCompatActivity {
 
         list_download = findViewById(R.id.list_download);
         list_download.setAdapter(download_arrays);
+        // Set an OnItemClickListener on the ListView
+        list_download.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the clicked item
+                String clickedItem = (String) parent.getItemAtPosition(position);
+                adapter_download.remove(position);
+                download_arrays.notifyDataSetChanged();
+
+            }
+        });
+
         filter = findViewById(R.id.filter);
         swipeRefreshLayout = findViewById(R.id.swipe);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -124,17 +138,27 @@ public class RekapData extends AppCompatActivity {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                Toast.makeText(RekapData.this, "Data sedang didownload", Toast.LENGTH_SHORT).show();
+
+
+                FirebaseStorage str = FirebaseStorage.getInstance();
                 if (!list_foto.isEmpty()) {
                     int totalFiles = list_foto.size();
-                    int[] completedDownloads = {0}; // Use an array to allow modification inside the listener
+                    int[] completedDownloads = {0};
 
                     for (int i = 0; i < totalFiles; i++) {
                         Random a = new Random();
                         int randomNumber = a.nextInt(1000000000);
-                        File localFile = new File(getExternalFilesDir(null), randomNumber + ".jpg");
 
-                        storageReference.child(list_foto.get(i)).getFile(localFile)
+                        // Get the Pictures directory in external storage
+                        File picturesDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Download");
+                        if (!picturesDir.exists()) {
+                            picturesDir.mkdirs(); // Create the directory if it doesn't exist
+                        }
+
+                        File localFile = new File(picturesDir, randomNumber + ".jpg");
+
+                        str.getReferenceFromUrl(list_foto.get(i)).getFile(localFile)
                                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -152,11 +176,11 @@ public class RekapData extends AppCompatActivity {
                                     public void onFailure(@NonNull Exception exception) {
                                         // Handle any errors here
                                         Toast.makeText(RekapData.this, "Failed to download: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                        // Optional: You might want to handle failures differently, such as retrying or stopping the process
                                     }
                                 });
                     }
                 }
+
 
             }
         });

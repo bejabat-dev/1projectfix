@@ -2,6 +2,7 @@ package com.example.a1projectfix.daftar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import com.example.a1projectfix.databinding.ActivityDetailMuridBinding;
 import com.example.a1projectfix.databinding.ActivityKonfirmasiDetailsBinding;
 import com.example.a1projectfix.utilitas.DataUser;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -25,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class DetailMurid extends AppCompatActivity {
     private ActivityDetailMuridBinding bind;
@@ -100,21 +103,40 @@ public class DetailMurid extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(DetailMurid.this, "Data sedang didownload", Toast.LENGTH_SHORT).show();
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
                 assert foto1 != null;
                 assert foto2 != null;
 
-                File localFile = new File(getExternalFilesDir(null), foto1 + ".jpg");
-                File localFile2 = new File(getExternalFilesDir(null), foto2 + ".jpg");
-                FileDownloadTask task1 = storageReference.child(foto2).getFile(localFile);
-                FileDownloadTask task2 = storageReference.child(foto1).getFile(localFile2);
+                // Get the Pictures directory in external storage
+                File picturesDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"Download" );
+                if (!picturesDir.exists()) {
+                    picturesDir.mkdirs(); // Create the directory if it doesn't exist
+                }
+                    Random r = new Random();
+
+
+                File localFile = new File(picturesDir, r.nextInt(1000000) + ".jpg");
+// Define file paths in the Pictures directory
+                File localFile2 = new File(picturesDir, r.nextInt(1000000) + ".jpg");
+
+// Download files from Firebase Storage
+                FileDownloadTask task1 = storage.getReferenceFromUrl(foto1).getFile(localFile);
+                FileDownloadTask task2 = storage.getReferenceFromUrl(foto2).getFile(localFile2);
+
+// Wait for both downloads to complete
                 Tasks.whenAll(task1, task2).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(DetailMurid.this, "Berhasil download", Toast.LENGTH_SHORT).show();
                         finish();
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DetailMurid.this, "Download failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 });
+
             }
         });
     }
