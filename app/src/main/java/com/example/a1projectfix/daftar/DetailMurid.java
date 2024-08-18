@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -116,22 +117,42 @@ public class DetailMurid extends AppCompatActivity {
         bind.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> data = new HashMap<>();
-                data.put("nama", bind.nama.getText().toString());
-                data.put("tempat", bind.tempat.getText().toString());
-                data.put("tanggal", bind.tanggal.getText().toString());
-                data.put("kelas", bind.kelas.getText().toString());
-                data.put("alamat", bind.alamat.getText().toString());
-
-                db.child(key).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                AlertDialog.Builder b = new AlertDialog.Builder(DetailMurid.this);
+                DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                View dialogView = binding.getRoot();
+                b.setView(dialogView);
+                AlertDialog d = b.create();
+                binding.judul.setText("Simpan perubahan ?");
+                binding.hapus.setText("Simpan");
+                binding.batal.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(DetailMurid.this, "Berhasil simpan", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+                    public void onClick(View view) {
+                        d.dismiss();
                     }
                 });
+                binding.hapus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("nama", bind.nama.getText().toString());
+                        data.put("tempat", bind.tempat.getText().toString());
+                        data.put("tanggal", bind.tanggal.getText().toString());
+                        data.put("kelas", bind.kelas.getText().toString());
+                        data.put("alamat", bind.alamat.getText().toString());
+
+                        db.child(key).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(DetailMurid.this, "Berhasil simpan", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                });
+                d.show();
+
             }
         });
         bind.download.setOnClickListener(new View.OnClickListener() {

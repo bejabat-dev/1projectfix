@@ -56,10 +56,8 @@ public class DownloadDataBulk extends AppCompatActivity {
                 String kelas = (String) map.get("kelas");
                 String alamat = (String) map.get("alamat");
                 String foto1 = (String) map.get("foto1");
-                String foto2 = (String) map.get("foto2");
 
                 Picasso.get().load(foto1).into(bind.foto1);
-                Picasso.get().load(foto2).into(bind.foto2);
 
                 bind.nama.setText(nama);
                 bind.tempalLahir.setText(tempat);

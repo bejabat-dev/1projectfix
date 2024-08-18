@@ -1,5 +1,6 @@
 package com.example.a1projectfix.daftar;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -14,17 +15,23 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.a1projectfix.R;
+import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
 import com.example.a1projectfix.databinding.PdfLayoutBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DownloadData extends AppCompatActivity {
     private PdfLayoutBinding bind;
@@ -45,10 +52,8 @@ public class DownloadData extends AppCompatActivity {
         String kelas = i.getStringExtra("kelas");
         String alamat = i.getStringExtra("alamat");
         String foto1 = i.getStringExtra("foto1");
-        String foto2 = i.getStringExtra("foto2");
 
         Picasso.get().load(foto1).into(bind.foto1);
-        Picasso.get().load(foto2).into(bind.foto2);
 
         bind.nama.setText(nama);
         bind.tempalLahir.setText(tempat);
@@ -60,8 +65,27 @@ public class DownloadData extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        generatePdf(bind.pdf, getContentResolver(),nama);
-                        finish();
+                        AlertDialog.Builder b = new AlertDialog.Builder(DownloadData.this);
+                        DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                        View dialogView = binding.getRoot();
+                        b.setView(dialogView);
+                        AlertDialog d = b.create();
+                        binding.judul.setText("Download data murid ?");
+                        binding.hapus.setText("Download");
+                        binding.batal.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                d.dismiss();
+                            }
+                        });
+                        binding.hapus.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                generatePdf(bind.pdf, getContentResolver(),nama);
+                                finish();
+                            }
+                        });
+                        d.show();
                     }
                 }
         );

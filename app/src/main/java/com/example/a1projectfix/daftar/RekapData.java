@@ -1,5 +1,6 @@
 package com.example.a1projectfix.daftar;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.a1projectfix.R;
+import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
 import com.example.a1projectfix.pendaftaran.Tambah;
 import com.example.a1projectfix.utilitas.DataMurid;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -134,16 +136,38 @@ public class RekapData extends AppCompatActivity {
         });
     }
 
-
     private void init(Context context) {
         TextView download = findViewById(R.id.download);
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RekapData.this, DownloadDataBulk.class);
-                i.putExtra("data",data_download);
-                startActivity(i);
-
+                if (data_download.isEmpty()) {
+                    Toast.makeText(RekapData.this, "Data tersimpan di Dokumen", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                AlertDialog.Builder b = new AlertDialog.Builder(RekapData.this);
+                DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                View dialogView = binding.getRoot();
+                b.setView(dialogView);
+                AlertDialog d = b.create();
+                binding.judul.setText("Download " + data_download.size() + " data murid ?");
+                binding.hapus.setText("Download");
+                binding.batal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        d.dismiss();
+                    }
+                });
+                binding.hapus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        d.dismiss();
+                        Intent i = new Intent(RekapData.this, DownloadDataBulk.class);
+                        i.putExtra("data", data_download);
+                        startActivity(i);
+                    }
+                });
+                d.show();
             }
         });
         search = findViewById(R.id.search);
