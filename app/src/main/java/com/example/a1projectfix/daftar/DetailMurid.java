@@ -1,16 +1,28 @@
 package com.example.a1projectfix.daftar;
 
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a1projectfix.R;
 import com.example.a1projectfix.databinding.ActivityDetailMuridBinding;
 import com.example.a1projectfix.databinding.ActivityKonfirmasiDetailsBinding;
+import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
 import com.example.a1projectfix.utilitas.DataUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +37,8 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -62,18 +76,40 @@ public class DetailMurid extends AppCompatActivity {
             bind.hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    db.child(key).removeValue();
-                    Toast.makeText(DetailMurid.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
-                    finish();
+                    AlertDialog.Builder b = new AlertDialog.Builder(DetailMurid.this);
+                    DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                    View dialogView = binding.getRoot();
+                    b.setView(dialogView);
+                    AlertDialog d = b.create();
+                    binding.batal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            d.dismiss();
+                        }
+                    });
+                    binding.hapus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            db.child(key).removeValue();
+                            Toast.makeText(DetailMurid.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                    d.show();
                 }
             });
         }
+        String nama = i.getStringExtra("nama");
+        String tempat = i.getStringExtra("tempat");
+        String tanggal = i.getStringExtra("tanggal");
+        String kelas = i.getStringExtra("kelas");
+        String alamat = i.getStringExtra("alamat");
 
-        bind.nama.setText(i.getStringExtra("nama"));
-        bind.tempat.setText(i.getStringExtra("tempat"));
-        bind.tanggal.setText(i.getStringExtra("tanggal"));
-        bind.kelas.setText(i.getStringExtra("kelas"));
-        bind.alamat.setText(i.getStringExtra("alamat"));
+        bind.nama.setText(nama);
+        bind.tempat.setText(tempat);
+        bind.tanggal.setText(tanggal);
+        bind.kelas.setText(kelas);
+        bind.alamat.setText(alamat);
         bind.download.setText("Download data");
         bind.save.setText("Simpan");
 
@@ -101,43 +137,19 @@ public class DetailMurid extends AppCompatActivity {
         bind.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(DetailMurid.this, "Data sedang didownload", Toast.LENGTH_SHORT).show();
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                assert foto1 != null;
-                assert foto2 != null;
-
-                // Get the Pictures directory in external storage
-                File picturesDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"Download" );
-                if (!picturesDir.exists()) {
-                    picturesDir.mkdirs(); // Create the directory if it doesn't exist
-                }
-                    Random r = new Random();
-
-
-                File localFile = new File(picturesDir, r.nextInt(1000000) + ".jpg");
-// Define file paths in the Pictures directory
-                File localFile2 = new File(picturesDir, r.nextInt(1000000) + ".jpg");
-
-// Download files from Firebase Storage
-                FileDownloadTask task1 = storage.getReferenceFromUrl(foto1).getFile(localFile);
-                FileDownloadTask task2 = storage.getReferenceFromUrl(foto2).getFile(localFile2);
-
-// Wait for both downloads to complete
-                Tasks.whenAll(task1, task2).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(DetailMurid.this, "Berhasil download", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DetailMurid.this, "Download failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                Intent i = new Intent(DetailMurid.this, DownloadData.class);
+                i.putExtra("key", key);
+                i.putExtra("nama", nama);
+                i.putExtra("tempat", tempat);
+                i.putExtra("tanggal", tanggal);
+                i.putExtra("kelas", kelas);
+                i.putExtra("alamat", alamat);
+                i.putExtra("foto1", foto1);
+                i.putExtra("foto2", foto2);
+                startActivity(i);
             }
         });
     }
+
+
 }

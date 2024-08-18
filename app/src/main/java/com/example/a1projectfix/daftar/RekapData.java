@@ -53,13 +53,14 @@ public class RekapData extends AppCompatActivity {
     public static ArrayAdapter<String> download_arrays;
     public static ArrayList<String> adapter_download = new ArrayList<>();
     public static ArrayList<String> download_foto = new ArrayList<>();
+    public static ArrayList<HashMap<String, Object>> data_download;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekap_data);
         download_arrays = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, adapter_download);
-
+        data_download = new ArrayList<>();
         list_download = findViewById(R.id.list_download);
         list_download.setAdapter(download_arrays);
         // Set an OnItemClickListener on the ListView
@@ -67,8 +68,8 @@ public class RekapData extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the clicked item
-                String clickedItem = (String) parent.getItemAtPosition(position);
                 adapter_download.remove(position);
+                data_download.remove(position);
                 download_arrays.notifyDataSetChanged();
 
             }
@@ -89,6 +90,8 @@ public class RekapData extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         DataMurid.loadMurid();
+        download_arrays.clear();
+        data_download.clear();
         init(RekapData.this);
     }
 
@@ -131,56 +134,15 @@ public class RekapData extends AppCompatActivity {
         });
     }
 
-    public static ArrayList<String> list_foto = new ArrayList<>();
 
     private void init(Context context) {
         TextView download = findViewById(R.id.download);
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RekapData.this, "Data sedang didownload", Toast.LENGTH_SHORT).show();
-
-
-                FirebaseStorage str = FirebaseStorage.getInstance();
-                if (!list_foto.isEmpty()) {
-                    int totalFiles = list_foto.size();
-                    int[] completedDownloads = {0};
-
-                    for (int i = 0; i < totalFiles; i++) {
-                        Random a = new Random();
-                        int randomNumber = a.nextInt(1000000000);
-
-                        // Get the Pictures directory in external storage
-                        File picturesDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Download");
-                        if (!picturesDir.exists()) {
-                            picturesDir.mkdirs(); // Create the directory if it doesn't exist
-                        }
-
-                        File localFile = new File(picturesDir, randomNumber + ".jpg");
-
-                        str.getReferenceFromUrl(list_foto.get(i)).getFile(localFile)
-                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                        // Increment the completedDownloads counter
-                                        completedDownloads[0]++;
-
-                                        // Check if all files have been downloaded
-                                        if (completedDownloads[0] == totalFiles) {
-                                            Toast.makeText(RekapData.this, "Berhasil download", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        // Handle any errors here
-                                        Toast.makeText(RekapData.this, "Failed to download: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-
+                Intent i = new Intent(RekapData.this, DownloadDataBulk.class);
+                i.putExtra("data",data_download);
+                startActivity(i);
 
             }
         });
@@ -297,7 +259,6 @@ public class RekapData extends AppCompatActivity {
                 return alamat;
             }
 
-
             public TextView getKelas() {
                 return kelas;
             }
@@ -353,10 +314,18 @@ public class RekapData extends AppCompatActivity {
             viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adapter_download.add(nama);
-                    list_foto.add(foto1);
-                    list_foto.add(foto2);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("nama", nama);
+                    map.put("tempat", tempat);
+                    map.put("tanggal", tanggal);
+                    map.put("kelas", kelas);
+                    map.put("alamat", alamat);
+                    map.put("foto1", foto1);
+                    map.put("foto2", foto2);
+                    data_download.add(map);
+                    download_arrays.add(nama);
                     download_arrays.notifyDataSetChanged();
+
                 }
             });
 

@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.a1projectfix.pendaftaran.Tambah;
-import com.example.a1projectfix.tampilan_awal.Dashboard;
-import com.example.a1projectfix.user.Profil;
 import com.example.a1projectfix.utilitas.DataMurid;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
