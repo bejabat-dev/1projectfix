@@ -40,7 +40,7 @@ public class EditProfil extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private int selection;
     private ImageView foto;
-    private String sumber_foto;
+    private String sumber_foto = "unset";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class EditProfil extends AppCompatActivity {
                 if(TextUtils.isEmpty(sNama)||TextUtils.isEmpty(sNohp)){
                     Toast.makeText(getApplicationContext(),"Masukkan nama dan nomor HP yang benar",Toast.LENGTH_SHORT).show();
                 }else{
-                    HashMap<String,String> data = new HashMap<>();
+                    HashMap<String,Object> data = new HashMap<>();
                     data.put("nama",sNama);
                     data.put("sabuk",sSabuk);
                     data.put("nohp",sNohp);
@@ -112,7 +112,7 @@ public class EditProfil extends AppCompatActivity {
                     if(user!=null){
                         String uid = auth.getCurrentUser().getUid();
                         data.put("email",user.getEmail());
-                        db.child(uid).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        db.child(uid).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
