@@ -50,7 +50,8 @@ public class DataUser {
         return role;
     }
 
-    private static String nama,sabuk,email,nohp,foto,selection,role;
+    private static String nama,sabuk,email,nohp,foto,selection;
+    private static String role = "user";
 
     public static ArrayList<HashMap<String, Object>> getList_riwayat() {
         return list_riwayat;
@@ -94,7 +95,10 @@ public class DataUser {
                 nohp = snapshot.child("nohp").getValue(String.class);
                 foto = snapshot.child("foto").getValue(String.class);
                 selection = snapshot.child("selection").getValue(String.class);
-                role = snapshot.child("role").getValue(String.class);
+                String newRole = snapshot.child("role").getValue(String.class);
+                if(newRole!=null){
+                    role = newRole;
+                }
                 Log.e("ERROR","ROLE : "+role);
 
             }
