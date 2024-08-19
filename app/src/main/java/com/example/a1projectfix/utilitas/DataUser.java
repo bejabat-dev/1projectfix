@@ -2,6 +2,7 @@ package com.example.a1projectfix.utilitas;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,7 +46,11 @@ public class DataUser {
         return selection;
     }
 
-    private static String nama,sabuk,email,nohp,foto,selection;
+    public static String getRole() {
+        return role;
+    }
+
+    private static String nama,sabuk,email,nohp,foto,selection,role;
 
     public static ArrayList<HashMap<String, Object>> getList_riwayat() {
         return list_riwayat;
@@ -69,8 +74,6 @@ public class DataUser {
         return pilihan;
     }
 
-    public static String role;
-
     public static void setPilihan(String pilihan) {
         DataUser.pilihan = pilihan;
     }
@@ -91,10 +94,9 @@ public class DataUser {
                 nohp = snapshot.child("nohp").getValue(String.class);
                 foto = snapshot.child("foto").getValue(String.class);
                 selection = snapshot.child("selection").getValue(String.class);
-                String role = snapshot.child("role").getValue(String.class);
-                if(role!=null){
-                    DataUser.role = role;
-                }
+                role = snapshot.child("role").getValue(String.class);
+                Log.e("ERROR","ROLE : "+role);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

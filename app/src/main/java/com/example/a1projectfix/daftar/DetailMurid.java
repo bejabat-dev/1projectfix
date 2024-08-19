@@ -109,9 +109,10 @@ public class DetailMurid extends AppCompatActivity {
             Picasso.get().load(foto1).into(bind.foto1);
             Picasso.get().load(foto2).into(bind.foto2);
         }
-        if (DataUser.role != "admin") {
+        if (!DataUser.getRole().equals("admin")) {
             bind.hapus.setVisibility(View.GONE);
         } else {
+            bind.hapus.setVisibility(View.VISIBLE);
             bind.hapus.setOnClickListener(v -> {
                 AlertDialog.Builder b = new AlertDialog.Builder(DetailMurid.this);
                 DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
