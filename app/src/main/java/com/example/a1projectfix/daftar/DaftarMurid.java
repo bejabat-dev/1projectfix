@@ -1,12 +1,12 @@
 package com.example.a1projectfix.daftar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -38,18 +38,16 @@ public class DaftarMurid extends AppCompatActivity {
     private ImageView filter;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    public DaftarMurid() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_murid);
         filter = findViewById(R.id.filter);
         swipeRefreshLayout = findViewById(R.id.swipe);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onResume();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::onResume);
     }
 
     @Override
@@ -106,45 +104,34 @@ public class DaftarMurid extends AppCompatActivity {
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
         searchByNama(context);
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFilter(context, filter);
-            }
-        });
+        filter.setOnClickListener(v -> showFilter(context, filter));
         swipeRefreshLayout.setRefreshing(false);
     }
-
-    private ArrayList<HashMap<String, Object>> filtered;
-    private ArrayList<HashMap<String, Object>> filteredResult;
 
     private void showFilter(Context context, View view) {
         PopupMenu menu = new PopupMenu(this, view);
         menu.getMenuInflater().inflate(R.menu.filter, menu.getMenu());
 
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
+        menu.setOnMenuItemClickListener(item -> {
 
-                if (Objects.equals(item.getTitle(), "Nama")) {
-                    CustomAdapter adapter = new CustomAdapter(context, DataMurid.getList_murid());
-                    rv.setAdapter(adapter);
-                    searchByNama(context);
-                }
-                if (Objects.equals(item.getTitle(), "Kelas Reguler")) {
-                    initFilter(context, "Reguler");
-                    filteredsearch(context);
-                }
-                if (Objects.equals(item.getTitle(), "Kelas Prestasi")) {
-                    initFilter(context, "Prestasi");
-                    filteredsearch(context);
-                }
-                if (Objects.equals(item.getTitle(), "Kelas Khusus")) {
-                    initFilter(context, "Khusus");
-                    filteredsearch(context);
-                }
-                return true;
+            if (Objects.equals(item.getTitle(), "Nama")) {
+                CustomAdapter adapter = new CustomAdapter(context, DataMurid.getList_murid());
+                rv.setAdapter(adapter);
+                searchByNama(context);
             }
+            if (Objects.equals(item.getTitle(), "Kelas Reguler")) {
+                initFilter(context, "Reguler");
+                filteredsearch(context);
+            }
+            if (Objects.equals(item.getTitle(), "Kelas Prestasi")) {
+                initFilter(context, "Prestasi");
+                filteredsearch(context);
+            }
+            if (Objects.equals(item.getTitle(), "Kelas Khusus")) {
+                initFilter(context, "Khusus");
+                filteredsearch(context);
+            }
+            return true;
         });
         menu.show();
     }
@@ -180,12 +167,12 @@ public class DaftarMurid extends AppCompatActivity {
         });
     }
 
-    public class CustomAdapter extends RecyclerView.Adapter<DaftarMurid.CustomAdapter.ViewHolder> {
+    public static class CustomAdapter extends RecyclerView.Adapter<DaftarMurid.CustomAdapter.ViewHolder> {
 
         private final ArrayList<HashMap<String, Object>> localDataSet;
-        private Context context;
+        private final Context context;
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama, tanggal, alamat, kelas;
             private final LinearLayout card;
             private final ImageView foto;
@@ -238,28 +225,27 @@ public class DaftarMurid extends AppCompatActivity {
             View view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.recycler_murid, viewGroup, false);
 
-            return new DaftarMurid.CustomAdapter.ViewHolder(view);
+            return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(DaftarMurid.CustomAdapter.ViewHolder viewHolder, final int position) {
-            String key = localDataSet.get(position).get("key").toString();
-            String tempat = localDataSet.get(position).get("tempat").toString();
-            String tanggal = localDataSet.get(position).get("tanggal").toString();
+        public void onBindViewHolder(DaftarMurid.CustomAdapter.ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
+            String key = Objects.requireNonNull(localDataSet.get(position).get("key")).toString();
+            String tempat = Objects.requireNonNull(localDataSet.get(position).get("tempat")).toString();
+            String tanggal = Objects.requireNonNull(localDataSet.get(position).get("tanggal")).toString();
 
-            String foto1 = localDataSet.get(position).get("foto1").toString();
-            String foto2 = localDataSet.get(position).get("foto2").toString();
+            String foto1 = Objects.requireNonNull(localDataSet.get(position).get("foto1")).toString();
+            String foto2 = Objects.requireNonNull(localDataSet.get(position).get("foto2")).toString();
 
-            String nama = localDataSet.get(position).get("nama").toString();
-            String kelas = localDataSet.get(position).get("kelas").toString();
+            String nama = Objects.requireNonNull(localDataSet.get(position).get("nama")).toString();
+            String kelas = Objects.requireNonNull(localDataSet.get(position).get("kelas")).toString();
 
-            String alamat = localDataSet.get(position).get("alamat").toString();
+            String alamat = Objects.requireNonNull(localDataSet.get(position).get("alamat")).toString();
             String ttl = tempat + ", " + tanggal;
-            String pos = String.valueOf(position + 1) + ".";
-            viewHolder.getNama().setText(localDataSet.get(position).get("nama").toString());
+            viewHolder.getNama().setText(Objects.requireNonNull(localDataSet.get(position).get("nama")).toString());
             viewHolder.getTanggal().setText(ttl);
-            viewHolder.getAlamat().setText(localDataSet.get(position).get("alamat").toString());
-            viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
+            viewHolder.getAlamat().setText(Objects.requireNonNull(localDataSet.get(position).get("alamat")).toString());
+            viewHolder.getKelas().setText(Objects.requireNonNull(localDataSet.get(position).get("kelas")).toString());
 
 
             if(!foto1.equals("unset")) {
@@ -267,38 +253,32 @@ public class DaftarMurid extends AppCompatActivity {
             }
 
 
-            viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context,DetailMurid.class);
-                    i.putExtra("key",key);
-                    i.putExtra("nama",nama);
-                    i.putExtra("tempat",tempat);
-                    i.putExtra("tanggal",tanggal);
-                    i.putExtra("kelas",kelas);
-                    i.putExtra("alamat",alamat);
-                    i.putExtra("foto1",foto1);
-                    i.putExtra("foto2",foto2);
-                    context.startActivity(i);
-                }
+            viewHolder.getCard().setOnClickListener(v -> {
+                Intent i = new Intent(context,DetailMurid.class);
+                i.putExtra("key",key);
+                i.putExtra("nama",nama);
+                i.putExtra("tempat",tempat);
+                i.putExtra("tanggal",tanggal);
+                i.putExtra("kelas",kelas);
+                i.putExtra("alamat",alamat);
+                i.putExtra("foto1",foto1);
+                i.putExtra("foto2",foto2);
+                context.startActivity(i);
             });
 
-            viewHolder.getCard().setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    DataMurid.foto1 = localDataSet.get(position).get("foto1").toString();
-                    DataMurid.foto2 = localDataSet.get(position).get("foto2").toString();
-                    DataMurid.key = key;
-                    Intent i = new Intent(context, Tambah.class);
-                    i.putExtra("nama", nama);
-                    i.putExtra("tempat", tempat);
-                    i.putExtra("editing", true);
-                    i.putExtra("alamat", alamat);
-                    i.putExtra("kelas", kelas);
-                    i.putExtra("tanggal", tanggal);
-                    context.startActivity(i);
-                    return true;
-                }
+            viewHolder.getCard().setOnLongClickListener(v -> {
+                DataMurid.foto1 = Objects.requireNonNull(localDataSet.get(position).get("foto1")).toString();
+                DataMurid.foto2 = Objects.requireNonNull(localDataSet.get(position).get("foto2")).toString();
+                DataMurid.key = key;
+                Intent i = new Intent(context, Tambah.class);
+                i.putExtra("nama", nama);
+                i.putExtra("tempat", tempat);
+                i.putExtra("editing", true);
+                i.putExtra("alamat", alamat);
+                i.putExtra("kelas", kelas);
+                i.putExtra("tanggal", tanggal);
+                context.startActivity(i);
+                return true;
             });
         }
 

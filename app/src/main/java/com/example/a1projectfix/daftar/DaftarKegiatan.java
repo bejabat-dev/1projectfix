@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.a1projectfix.InputKegiatan;
 import com.example.a1projectfix.R;
-import com.example.a1projectfix.user.Daftar;
 import com.example.a1projectfix.utilitas.DataKegiatan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -24,8 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DaftarKegiatan extends AppCompatActivity {
-    private FloatingActionButton input;
-    private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,22 +36,17 @@ public class DaftarKegiatan extends AppCompatActivity {
     }
 
     private void init(){
-        input = findViewById(R.id.input);
-        rv = findViewById(R.id.recyclerKegiatan);
+        FloatingActionButton input = findViewById(R.id.input);
+        RecyclerView rv = findViewById(R.id.recyclerKegiatan);
         CustomAdapter adapter = new CustomAdapter(DataKegiatan.getList_kegiatan());
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        input.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DaftarKegiatan.this, InputKegiatan.class));
-            }
-        });
+        input.setOnClickListener(v -> startActivity(new Intent(DaftarKegiatan.this, InputKegiatan.class)));
     }
 
     public static class CustomAdapter extends RecyclerView.Adapter<DaftarKegiatan.CustomAdapter.ViewHolder> {
 
-        private ArrayList<HashMap<String,String>> localDataSet;
+        private final ArrayList<HashMap<String,String>> localDataSet;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama,tanggal;
@@ -95,9 +87,9 @@ public class DaftarKegiatan extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(DaftarKegiatan.CustomAdapter.ViewHolder viewHolder, final int position) {
-            viewHolder.getNama().setText(localDataSet.get(position).get("nama").toString());
-            viewHolder.getTanggal().setText(localDataSet.get(position).get("tanggal").toString());
-            Picasso.get().load(localDataSet.get(position).get("foto").toString()).into(viewHolder.getFoto());
+            viewHolder.getNama().setText(localDataSet.get(position).get("nama"));
+            viewHolder.getTanggal().setText(localDataSet.get(position).get("tanggal"));
+            Picasso.get().load(localDataSet.get(position).get("foto")).into(viewHolder.getFoto());
         }
 
         @Override
