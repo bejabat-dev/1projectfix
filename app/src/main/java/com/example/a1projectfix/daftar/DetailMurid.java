@@ -109,7 +109,7 @@ public class DetailMurid extends AppCompatActivity {
             Picasso.get().load(foto1).into(bind.foto1);
             Picasso.get().load(foto2).into(bind.foto2);
         }
-        if (DataUser.role == null) {
+        if (DataUser.role != "admin") {
             bind.hapus.setVisibility(View.GONE);
         } else {
             bind.hapus.setOnClickListener(v -> {
