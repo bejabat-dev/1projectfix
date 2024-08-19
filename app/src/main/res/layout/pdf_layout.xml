@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/pdf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/White"
         android:orientation="vertical">
@@ -17,18 +17,17 @@
         <ImageView
             android:id="@+id/foto1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
+            android:layout_height="400dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/absen" />
 
         <LinearLayout
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -118,7 +117,7 @@
                     android:id="@+id/nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:text="Loading"
                     android:textSize="14sp" />
 
@@ -126,7 +125,7 @@
                     android:id="@+id/tempal_lahir"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:text="Loading"
                     android:textSize="14sp" />
 
@@ -134,7 +133,7 @@
                     android:id="@+id/tanggal_lahir"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:text="Loading"
                     android:textSize="14sp" />
 
@@ -142,7 +141,7 @@
                     android:id="@+id/kelas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:text="Loading"
                     android:textSize="14sp" />
 
@@ -150,7 +149,7 @@
                     android:id="@+id/alamat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="end"
                     android:maxWidth="150dp"
                     android:maxLines="4"
                     android:minLines="2"

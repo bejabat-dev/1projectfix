@@ -1,5 +1,6 @@
 package com.example.a1projectfix.daftar;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a1projectfix.databinding.ActivityDetailMuridBinding;
 import com.example.a1projectfix.databinding.ActivityKonfirmasiDetailsBinding;
+import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -59,48 +61,88 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String key = db.push().getKey();
-                Map<String,Object> data = new HashMap<>();
-                data.put("key",key);
-                data.put("nama",bind.nama.getText().toString());
-                data.put("tempat",bind.tempat.getText().toString());
-                data.put("tanggal",bind.tanggal.getText().toString());
-                data.put("kelas",bind.kelas.getText().toString());
-                data.put("alamat",bind.alamat.getText().toString());
-                data.put("foto1",foto1);
-                data.put("foto2",foto2);
-
-                assert key != null;
-                db.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiDetails.this);
+                DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                View dialogView = binding.getRoot();
+                b.setView(dialogView);
+                AlertDialog d = b.create();
+                binding.judul.setText("Konfirmasi data ?");
+                binding.hapus.setText("Konfirmasi");
+                binding.batal.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(KonfirmasiDetails.this,"Berhasil konfirmasi",Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                }
-                            });
-                        }
+                    public void onClick(View view) {
+                        d.dismiss();
                     }
                 });
+                binding.hapus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String key = db.push().getKey();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("key", key);
+                        data.put("nama", bind.nama.getText().toString());
+                        data.put("tempat", bind.tempat.getText().toString());
+                        data.put("tanggal", bind.tanggal.getText().toString());
+                        data.put("kelas", bind.kelas.getText().toString());
+                        data.put("alamat", bind.alamat.getText().toString());
+                        data.put("foto1", foto1);
+                        data.put("foto2", foto2);
+
+                        assert key != null;
+                        db.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(KonfirmasiDetails.this, "Berhasil konfirmasi", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+                d.show();
+
+
             }
         });
         bind.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiDetails.this);
+                DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
+                View dialogView = binding.getRoot();
+                b.setView(dialogView);
+                AlertDialog d = b.create();
+                binding.judul.setText("Hapus data ?");
+                binding.hapus.setText("Hapus");
+                binding.batal.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(KonfirmasiDetails.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+                    public void onClick(View view) {
+                        d.dismiss();
                     }
                 });
+                binding.hapus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        db.child(keyNama).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(KonfirmasiDetails.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                });
+                d.show();
             }
         });
     }

@@ -66,7 +66,6 @@ public class DownloadDataBulk extends AppCompatActivity {
                 bind.alamat.setText(alamat);
                 bind.pdf.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 bind.pdf.layout(0, 0, bind.pdf.getMeasuredWidth(), bind.pdf.getMeasuredHeight());
-
                 generatePdf(bind.pdf, getContentResolver(), nama);
             }
             Toast.makeText(DownloadDataBulk.this, "Data tersimpan di Dokumen", Toast.LENGTH_SHORT).show();

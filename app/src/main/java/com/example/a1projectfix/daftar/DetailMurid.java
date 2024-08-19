@@ -1,5 +1,6 @@
 package com.example.a1projectfix.daftar;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -13,10 +14,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,7 +46,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class DetailMurid extends AppCompatActivity {
     private ActivityDetailMuridBinding bind;
@@ -56,8 +62,52 @@ public class DetailMurid extends AppCompatActivity {
         init();
     }
 
-    private void init() {
+    String nextKey, nextFoto;
 
+    private ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri selectedImageUri = result.getData().getData();
+                    if (selectedImageUri != null) {
+                        uploadImageToFirebase(selectedImageUri,nextKey,nextFoto);
+                    }
+                }
+            }
+    );
+
+    private void uploadImageToFirebase(Uri imageUri, String key, String foto) {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Murid");
+        if (imageUri != null) {
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference imagesRef = storageRef.child("images/" + UUID.randomUUID().toString());
+            imagesRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        imagesRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+                            String downloadUrl = downloadUri.toString();
+                            Map<String, Object> data = new HashMap<>();
+                            data.put(foto, downloadUrl);
+                            db.child(key).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (Objects.equals(foto, "foto1")) {
+                                        bind.foto1.setImageURI(Uri.parse(downloadUrl));
+                                    } else if (foto.equals("foto2")) {
+                                        bind.foto2.setImageURI(Uri.parse(downloadUrl));
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .addOnFailureListener(exception -> {
+                        // Handle failed upload
+                        Log.e("FirebaseUpload", "Upload failed", exception);
+                    });
+        }
+    }
+
+    private void init() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Murid");
         Intent i = getIntent();
 
@@ -66,6 +116,26 @@ public class DetailMurid extends AppCompatActivity {
         String foto1, foto2;
         foto1 = i.getStringExtra("foto1");
         foto2 = i.getStringExtra("foto2");
+
+        bind.foto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nextKey = key;
+                nextFoto = "foto1";
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickImageLauncher.launch(intent);
+            }
+        });
+        bind.foto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nextKey = key;
+                nextFoto = "foto2";
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickImageLauncher.launch(intent);
+            }
+        });
+
 
         if (foto1 != null && foto2 != null) {
             Picasso.get().load(foto1).into(bind.foto1);
