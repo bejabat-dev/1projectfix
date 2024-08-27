@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.a1projectfix.DownloadRekap;
 import com.example.a1projectfix.R;
 import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
 import com.example.a1projectfix.pendaftaran.Tambah;
@@ -52,10 +53,12 @@ public class RekapData extends AppCompatActivity {
     private ImageView filter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView list_download;
+    private TextView download_rekap;
     public static ArrayAdapter<String> download_arrays;
     public static ArrayList<String> adapter_download = new ArrayList<>();
     public static ArrayList<String> download_foto = new ArrayList<>();
     public static ArrayList<HashMap<String, Object>> data_download;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +79,18 @@ public class RekapData extends AppCompatActivity {
 
             }
         });
-
+        initClicks();
         filter = findViewById(R.id.filter);
         swipeRefreshLayout = findViewById(R.id.swipe);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onResume();
-            }
+        swipeRefreshLayout.setOnRefreshListener(this::onResume);
+    }
+
+
+    private void initClicks() {
+        download_rekap = findViewById(R.id.rekap_keseluruhan);
+        download_rekap.setOnClickListener(v -> {
+            Intent i = new Intent(RekapData.this, DownloadRekap.class);
+            startActivity(i);
         });
     }
 

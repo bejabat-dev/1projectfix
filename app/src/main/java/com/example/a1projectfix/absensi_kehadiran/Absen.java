@@ -41,12 +41,7 @@ public class Absen extends AppCompatActivity {
 
     private void init(){
         b = findViewById(R.id.input);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Absen.this, InputAbsen.class));
-            }
-        });
+        b.setOnClickListener(v -> startActivity(new Intent(Absen.this, InputAbsen.class)));
         rv = findViewById(R.id.recyclerRekapAbsen);
         if(DataUser.getList_riwayat()!=null){
             CustomAdapter adapter = new CustomAdapter(DataUser.getList_riwayat());
