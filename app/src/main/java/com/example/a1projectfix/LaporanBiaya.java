@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,12 +71,14 @@ public class LaporanBiaya extends AppCompatActivity {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView nama, kelas, biaya;
+            private final ImageView foto;
 
             public ViewHolder(View view) {
                 super(view);
                 nama = view.findViewById(R.id.nama);
                 kelas = view.findViewById(R.id.kelas);
                 biaya = view.findViewById(R.id.biaya);
+                foto = view.findViewById(R.id.foto);
             }
 
             public TextView getNama() {
@@ -87,6 +91,10 @@ public class LaporanBiaya extends AppCompatActivity {
 
             public TextView getBiaya() {
                 return biaya;
+            }
+
+            public ImageView getFoto() {
+                return foto;
             }
         }
 
@@ -105,6 +113,7 @@ public class LaporanBiaya extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder v, final int position) {
+            Picasso.get().load(localDataSet.get(position).getFoto1()).into(v.getFoto());
             String biaya = "Rp" + localDataSet.get(position).getBiaya();
             v.getNama().setText(localDataSet.get(position).getNama());
             v.getKelas().setText(localDataSet.get(position).getKelas());
