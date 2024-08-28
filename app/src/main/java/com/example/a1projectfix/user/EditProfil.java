@@ -106,6 +106,7 @@ public class EditProfil extends AppCompatActivity {
                     data.put("nohp",sNohp);
                     data.put("selection",String.valueOf(selection));
                     data.put("foto",sumber_foto);
+                    data.put("register",true);
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference db = FirebaseDatabase.getInstance().getReference("Users");

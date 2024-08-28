@@ -1,5 +1,6 @@
 package com.example.a1projectfix.daftar;
 
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KonfirmasiDetails extends AppCompatActivity {
+public class KonfirmasiPerubahan extends AppCompatActivity {
     private ActivityKonfirmasiDetailsBinding bind;
     private String keyNama;
 
@@ -63,7 +64,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiDetails.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiPerubahan.this);
                 DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
                 View dialogView = binding.getRoot();
                 b.setView(dialogView);
@@ -99,7 +100,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(KonfirmasiDetails.this, "Berhasil konfirmasi", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(KonfirmasiPerubahan.this, "Berhasil konfirmasi", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                         }
@@ -117,7 +118,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiDetails.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(KonfirmasiPerubahan.this);
                 DialogKonfirmasiBinding binding = DialogKonfirmasiBinding.inflate(getLayoutInflater());
                 View dialogView = binding.getRoot();
                 b.setView(dialogView);
@@ -137,7 +138,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(KonfirmasiDetails.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(KonfirmasiPerubahan.this, "Berhasil hapus", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             }

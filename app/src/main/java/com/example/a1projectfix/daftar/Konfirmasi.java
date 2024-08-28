@@ -149,6 +149,7 @@ public class Konfirmasi extends AppCompatActivity {
 
             String nama = localDataSet.get(position).get("nama").toString();
             String kelas = localDataSet.get(position).get("kelas").toString();
+            String biaya = localDataSet.get(position).get("biaya").toString();
 
             String alamat = localDataSet.get(position).get("alamat").toString();
             String ttl = tempat + ", " + tanggal;
@@ -169,6 +170,7 @@ public class Konfirmasi extends AppCompatActivity {
                     i.putExtra("alamat", alamat);
                     i.putExtra("foto1", foto1);
                     i.putExtra("foto2", foto2);
+                    i.putExtra("biaya",biaya);
                     localContext.startActivity(i);
                 }
             });
