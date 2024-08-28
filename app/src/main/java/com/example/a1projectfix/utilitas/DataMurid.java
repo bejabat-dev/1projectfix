@@ -32,15 +32,19 @@ public class DataMurid {
     public static String getNama() {
         return nama;
     }
+
     public static String getKelas() {
         return kelas;
     }
+
     public static String getTempat() {
         return tempat;
     }
+
     public static String getTanggal() {
         return tanggal;
     }
+
     public static String getAlamat() {
         return alamat;
     }
@@ -108,7 +112,7 @@ public class DataMurid {
                 };
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     HashMap<String, Object> d = ds.getValue(map);
-                    if(d.get("register")==null){
+                    if (d.get("register") == null) {
 
                         list_murid.add(d);
                     }

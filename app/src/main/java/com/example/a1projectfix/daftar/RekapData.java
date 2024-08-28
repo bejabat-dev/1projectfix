@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -30,20 +29,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.a1projectfix.DownloadRekap;
 import com.example.a1projectfix.R;
 import com.example.a1projectfix.databinding.DialogKonfirmasiBinding;
-import com.example.a1projectfix.pendaftaran.Tambah;
 import com.example.a1projectfix.utilitas.DataMurid;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Random;
 
 public class RekapData extends AppCompatActivity {
     private RecyclerView rv;
@@ -272,7 +263,7 @@ public class RekapData extends AppCompatActivity {
                 nama = view.findViewById(R.id.nama);
                 tanggal = view.findViewById(R.id.tanggal);
                 kelas = view.findViewById(R.id.kelas);
-                alamat = view.findViewById(R.id.alamat);
+                alamat = view.findViewById(R.id.biaya);
                 card = view.findViewById(R.id.card);
                 foto = view.findViewById(R.id.foto);
             }

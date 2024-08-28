@@ -54,7 +54,6 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.tanggal.setText(i.getStringExtra("tanggal"));
         bind.tempat.setText(i.getStringExtra("tempat"));
         bind.kelas.setText(i.getStringExtra("kelas"));
-        bind.alamat.setText(i.getStringExtra("alamat"));
         bind.download.setText("Hapus");
         bind.save.setText("Konfirmasi");
 
@@ -84,12 +83,10 @@ public class KonfirmasiDetails extends AppCompatActivity {
                         data.put("tempat", bind.tempat.getText().toString());
                         data.put("tanggal", bind.tanggal.getText().toString());
                         data.put("kelas", bind.kelas.getText().toString());
-                        data.put("alamat", bind.alamat.getText().toString());
                         data.put("foto1", foto1);
                         data.put("foto2", foto2);
-
                         assert key != null;
-                        db.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        db.child(key).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {

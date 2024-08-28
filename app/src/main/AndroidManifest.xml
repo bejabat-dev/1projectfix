@@ -21,6 +21,9 @@
         android:theme="@style/Theme._1ProjectFix"
         tools:targetApi="31">
         <activity
+            android:name=".LaporanBiaya"
+            android:exported="false" />
+        <activity
             android:name=".DownloadRekap"
             android:exported="false" />
         <activity

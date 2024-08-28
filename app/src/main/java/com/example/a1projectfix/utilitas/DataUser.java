@@ -50,7 +50,7 @@ public class DataUser {
     }
 
     private static String nama, sabuk, email, nohp, foto, selection;
-    private static String role = "user";
+    public static String role = "user";
 
     public static ArrayList<HashMap<String, Object>> getList_riwayat() {
         return list_riwayat;

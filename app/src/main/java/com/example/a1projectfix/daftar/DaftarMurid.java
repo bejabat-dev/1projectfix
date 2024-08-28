@@ -182,7 +182,7 @@ public class DaftarMurid extends AppCompatActivity {
                 nama = view.findViewById(R.id.nama);
                 tanggal = view.findViewById(R.id.tanggal);
                 kelas = view.findViewById(R.id.kelas);
-                alamat = view.findViewById(R.id.alamat);
+                alamat = view.findViewById(R.id.biaya);
                 card = view.findViewById(R.id.card);
                 foto = view.findViewById(R.id.foto);
             }

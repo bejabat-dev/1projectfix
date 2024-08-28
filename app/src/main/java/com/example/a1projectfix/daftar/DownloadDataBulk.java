@@ -63,7 +63,6 @@ public class DownloadDataBulk extends AppCompatActivity {
                 bind.tempalLahir.setText(tempat);
                 bind.tanggalLahir.setText(tanggal);
                 bind.kelas.setText(kelas);
-                bind.alamat.setText(alamat);
                 bind.pdf.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 bind.pdf.layout(0, 0, bind.pdf.getMeasuredWidth(), bind.pdf.getMeasuredHeight());
                 generatePdf(bind.pdf, getContentResolver(), nama);

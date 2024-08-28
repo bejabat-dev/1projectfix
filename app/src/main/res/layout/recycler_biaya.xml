@@ -52,14 +52,6 @@
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:text="TTL" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
                 android:text="Kelas" />
 
             <TextView
@@ -68,7 +60,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:text="Alamat" />
+                android:text="Biaya" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,15 +72,6 @@
 
             <TextView
                 android:id="@+id/nama"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:paddingEnd="24dp"
-                android:paddingBottom="4dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/tanggal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
