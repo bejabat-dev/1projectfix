@@ -278,7 +278,7 @@
                 <LinearLayout
                     android:id="@id/konfirmasi_data"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="2dp"
@@ -298,7 +298,7 @@
                         android:id="@+id/konfirmasi_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:elevation="3dp"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -312,7 +312,7 @@
                 <LinearLayout
                     android:id="@id/laporan_biaya"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
@@ -327,7 +327,6 @@
                         android:id="@+id/imageView2"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/pembayaran" />
 
@@ -335,12 +334,10 @@
                         android:id="@+id/laporan_biaya"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:elevation="3dp"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:gravity="center_vertical"
-                        android:padding="8dp"
                         android:text="Laporan biaya"
                         android:textSize="16sp"
                         android:textStyle="bold" />

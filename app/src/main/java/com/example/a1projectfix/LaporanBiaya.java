@@ -27,6 +27,7 @@ import java.util.List;
 public class LaporanBiaya extends AppCompatActivity {
     private ActivityLaporanBiayaBinding bind;
     private List<User> userList = new ArrayList<>();
+    private int Total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,14 @@ public class LaporanBiaya extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Total = 0;
                 List<User> users = new ArrayList<>();
                 for (DataSnapshot s : snapshot.getChildren()) {
                     User user = s.getValue(User.class);
                     if (user != null) {
+                        Total += user.getBiaya();
+                        String newTotal = "Rp" + Total;
+                        bind.total.setText(newTotal);
                         users.add(user);
                     }
                 }

@@ -59,6 +59,7 @@ public class DownloadData extends AppCompatActivity {
         bind.tempalLahir.setText(tempat);
         bind.tanggalLahir.setText(tanggal);
         bind.kelas.setText(kelas);
+        bind.alamat.setText(alamat);
 
         bind.simpan.setOnClickListener(
                 new View.OnClickListener() {

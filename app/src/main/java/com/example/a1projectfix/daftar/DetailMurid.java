@@ -138,6 +138,7 @@ public class DetailMurid extends AppCompatActivity {
         bind.tempat.setText(tempat);
         bind.tanggal.setText(tanggal);
         bind.kelas.setText(kelas);
+        bind.alamat.setText(alamat);
         bind.download.setText("Download data");
         bind.save.setText("Simpan");
 
