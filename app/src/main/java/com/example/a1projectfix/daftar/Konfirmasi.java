@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,6 +117,10 @@ public class Konfirmasi extends AppCompatActivity {
             public LinearLayout getCard() {
                 return card;
             }
+
+            public ImageView getFoto() {
+                return foto;
+            }
         }
 
 
@@ -127,8 +132,7 @@ public class Konfirmasi extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.recycler_murid, viewGroup, false);
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_murid, viewGroup, false);
 
             return new ViewHolder(view);
         }
@@ -152,6 +156,7 @@ public class Konfirmasi extends AppCompatActivity {
             viewHolder.getTanggal().setText(ttl);
             viewHolder.getAlamat().setText(localDataSet.get(position).get("alamat").toString());
             viewHolder.getKelas().setText(localDataSet.get(position).get("kelas").toString());
+            Picasso.get().load(foto1).into(viewHolder.getFoto());
 
             viewHolder.getCard().setOnClickListener(new View.OnClickListener() {
                 @Override

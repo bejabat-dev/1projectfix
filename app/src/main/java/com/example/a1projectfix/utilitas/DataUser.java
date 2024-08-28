@@ -111,7 +111,7 @@ public class DataUser {
         if (user != null) {
             String uid = user.getUid();
             db = FirebaseDatabase.getInstance().getReference("Users/" + uid);
-            db.setValue(map);
+            db.updateChildren(map);
         }
     }
 
@@ -122,7 +122,7 @@ public class DataUser {
             db = FirebaseDatabase.getInstance().getReference("Riwayat");
             String key = db.push().getKey();
             assert key != null;
-            db.child(key).setValue(map).addOnCompleteListener(task -> {
+            db.child(key).updateChildren(map).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(c, "Input berhasil", Toast.LENGTH_SHORT).show();
                     loadRiwayat();

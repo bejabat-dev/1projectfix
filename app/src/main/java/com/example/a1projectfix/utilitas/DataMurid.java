@@ -88,7 +88,7 @@ public class DataMurid {
 
     public void tambahMurid(Context c, HashMap<String, Object> map, String key) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        db.child("Murid").child(key).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.child("Murid").child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

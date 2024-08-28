@@ -38,9 +38,9 @@ public class DataKegiatan {
     }
 
     private static String nama,tanggal,foto;
-    private static HashMap<String,String> data;
+    private static HashMap<String,Object> data;
 
-    public static HashMap<String, String> getData() {
+    public static HashMap<String, Object> getData() {
         return data;
     }
 
@@ -60,10 +60,10 @@ public class DataKegiatan {
         data.put("foto",foto);
     }
 
-    public void updateKegiatan(Context c,HashMap<String, String> map){
+    public void updateKegiatan(Context c,HashMap<String, Object> map){
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Kegiatan");
         String key = db.push().getKey();
-        db.child(key).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
