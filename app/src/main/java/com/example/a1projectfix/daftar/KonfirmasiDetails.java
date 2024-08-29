@@ -56,7 +56,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         bind.tempat.setText(i.getStringExtra("tempat"));
         bind.kelas.setText(i.getStringExtra("kelas"));
         bind.alamat.setText(i.getStringExtra("kelas"));
-        int biaya = i.getIntExtra("biaya",0);
+        long biaya = i.getLongExtra("biaya",0);
         bind.download.setText("Hapus");
         bind.save.setText("Konfirmasi");
 

@@ -149,7 +149,7 @@ public class Konfirmasi extends AppCompatActivity {
 
             String nama = localDataSet.get(position).get("nama").toString();
             String kelas = localDataSet.get(position).get("kelas").toString();
-            String biaya = localDataSet.get(position).get("biaya").toString();
+            long biaya = (long) localDataSet.get(position).get("biaya");
 
             String alamat = localDataSet.get(position).get("alamat").toString();
             String ttl = tempat + ", " + tanggal;

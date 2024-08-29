@@ -55,7 +55,8 @@ public class Dashboard extends AppCompatActivity {
         data = new DataUser();
         data.loadUser();
         data.loadRiwayat();
-        DataMurid.loadMurid();
+        DataMurid data = new DataMurid();
+        data.loadMurid();
         DataKegiatan dataKegiatan = new DataKegiatan();
         dataKegiatan.loadKegiatan();
         konfirmasi_data = findViewById(R.id.konfirmasi_data);

@@ -88,7 +88,6 @@ public class KonfirmasiPerubahan extends AppCompatActivity {
                         data.put("tanggal", bind.tanggal.getText().toString());
                         data.put("kelas", bind.kelas.getText().toString());
                         data.put("alamat",bind.alamat.getText().toString());
-                        data.put("biaya",biaya);
                         data.put("foto1", foto1);
                         data.put("foto2", foto2);
                         assert key != null;

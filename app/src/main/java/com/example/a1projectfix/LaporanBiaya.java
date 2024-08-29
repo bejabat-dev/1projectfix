@@ -26,7 +26,6 @@ import java.util.List;
 
 public class LaporanBiaya extends AppCompatActivity {
     private ActivityLaporanBiayaBinding bind;
-    private List<User> userList = new ArrayList<>();
     private int Total;
 
     @Override
@@ -57,7 +56,6 @@ public class LaporanBiaya extends AppCompatActivity {
                         users.add(user);
                     }
                 }
-                userList = users;
                 CustomAdapter customAdapter = new CustomAdapter(users);
                 bind.recycler.setAdapter(customAdapter);
                 bind.recycler.setLayoutManager(new LinearLayoutManager(LaporanBiaya.this));

@@ -97,7 +97,6 @@ public class DaftarMurid extends AppCompatActivity {
     }
 
     private void init(Context context) {
-
         search = findViewById(R.id.search);
         rv = findViewById(R.id.recycler);
         CustomAdapter adapter = new CustomAdapter(context, DataMurid.getList_murid());
