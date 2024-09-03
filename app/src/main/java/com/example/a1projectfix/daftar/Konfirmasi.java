@@ -163,6 +163,7 @@ public class Konfirmasi extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(localContext, KonfirmasiDetails.class);
+                    i.putExtra("key",key);
                     i.putExtra("nama", nama);
                     i.putExtra("tempat", tempat);
                     i.putExtra("tanggal", tanggal);

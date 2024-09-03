@@ -39,7 +39,7 @@ public class KonfirmasiDetails extends AppCompatActivity {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Murid");
         Intent i = getIntent();
 
-        keyNama = i.getStringExtra("nama");
+        keyNama = i.getStringExtra("key");
 
         String foto1, foto2;
         foto1 = i.getStringExtra("foto1");

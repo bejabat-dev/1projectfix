@@ -53,10 +53,10 @@ public class Dashboard extends AppCompatActivity {
         total_terkonfirmasi = findViewById(R.id.total_terkonfirmasi);
         rekap_data = findViewById(R.id.rekap_data);
         data = new DataUser();
-        data.loadUser();
+        data.loadUser(this);
         data.loadRiwayat();
         DataMurid data = new DataMurid();
-        data.loadMurid();
+        DataMurid.loadMurid();
         DataKegiatan dataKegiatan = new DataKegiatan();
         dataKegiatan.loadKegiatan();
         konfirmasi_data = findViewById(R.id.konfirmasi_data);

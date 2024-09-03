@@ -75,14 +75,12 @@ public class Profil extends AppCompatActivity {
         semail = DataUser.getEmail();
         snohp = DataUser.getNohp();
         sfoto = DataUser.getFoto();
-        String selection = DataUser.getSelection();
-        assert selection != null;
-        select = Integer.parseInt(selection);
+        select = DataUser.getSelection();
         if (ssabuk != null || snohp != null) {
             sabuk.setText(ssabuk);
             nohp.setText(snohp);
         }
-        if (!sfoto.equals("")) {
+        if (!sfoto.isEmpty()) {
             Picasso.get().load(sfoto).into(foto);
         }
         nama.setText(snama);

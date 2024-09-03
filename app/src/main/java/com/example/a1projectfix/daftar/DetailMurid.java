@@ -157,7 +157,7 @@ public class DetailMurid extends AppCompatActivity {
                 data.put("tempat", bind.tempat.getText().toString());
                 data.put("tanggal", bind.tanggal.getText().toString());
                 data.put("kelas", bind.kelas.getText().toString());
-                data.put("register ",true);
+                data.put("register",true);
                 db.child(key).updateChildren(data).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(DetailMurid.this, "Data disimpan, harap tunggu konfirmasi admin", Toast.LENGTH_SHORT).show();

@@ -104,7 +104,7 @@ public class EditProfil extends AppCompatActivity {
                     data.put("nama",sNama);
                     data.put("sabuk",sSabuk);
                     data.put("nohp",sNohp);
-                    data.put("selection",String.valueOf(selection));
+                    data.put("selection",selection);
                     data.put("foto",sumber_foto);
                     data.put("register",true);
                     FirebaseAuth auth = FirebaseAuth.getInstance();

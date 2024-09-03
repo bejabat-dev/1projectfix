@@ -1,6 +1,7 @@
 package com.example.a1projectfix.utilitas;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class DataUser {
         return foto;
     }
 
-    public static String getSelection() {
+    public static Integer getSelection() {
         return selection;
     }
 
@@ -49,7 +50,8 @@ public class DataUser {
         return role;
     }
 
-    private static String nama, sabuk, email, nohp, foto, selection;
+    private static String nama, sabuk, email, nohp, foto;
+    private static int selection;
     public static String role = "user";
 
     public static ArrayList<HashMap<String, Object>> getList_riwayat() {
@@ -76,7 +78,12 @@ public class DataUser {
 
     private static String pilihan;
 
-    public void loadUser() {
+    public void loadUser(Context context) {
+        AlertDialog.Builder b = new AlertDialog.Builder(context);
+        b.setMessage("Memuat");
+        b.create();
+        AlertDialog d = b.setCancelable(false).create();
+        d.show();
         db = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
         String uid = Objects.requireNonNull(auth.getCurrentUser()).getUid();
@@ -88,18 +95,18 @@ public class DataUser {
                 email = snapshot.child("email").getValue(String.class);
                 nohp = snapshot.child("nohp").getValue(String.class);
                 foto = snapshot.child("foto").getValue(String.class);
-                selection = snapshot.child("selection").getValue(String.class);
+                selection = snapshot.child("selection").getValue(Integer.class);
                 String newRole = snapshot.child("role").getValue(String.class);
                 if (newRole != null) {
                     role = newRole;
                 }
-                Log.e("ERROR", "ROLE : " + role);
-
+                d.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                d.dismiss();
+                ((Activity) context).finish();
             }
         });
     }
